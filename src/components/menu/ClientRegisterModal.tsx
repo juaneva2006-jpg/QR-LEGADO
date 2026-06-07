@@ -40,18 +40,26 @@ export default function ClientRegisterModal({ open, onClose, onSuccess }: Props)
 
     setLoading(true)
     try {
-      // Simular envío OTP para no gastar saldo en Twilio
-      const mockOtp = Math.floor(100000 + Math.random() * 900000).toString()
-      setGeneratedOtp(mockOtp)
-      
-      // Simular SMS en la UI
-      console.log(`[SIMULACIÓN SMS] OTP para ${telefono}: ${mockOtp}`)
-      toast.success(`Código enviado a ${telefono}\n(Demo: ${mockOtp})`, {
-        duration: 10000,
+      // Llamada real a la API de Twilio Verify
+      const res = await fetch('/api/verify/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to: telefono.trim() })
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Error al enviar SMS')
+      }
+
+      toast.success(`Código enviado a ${telefono}`, {
+        duration: 5000,
         icon: '📱',
       })
       
       setStep('otp')
+    } catch (err: any) {
+      toast.error(err.message || 'Error al enviar código')
     } finally {
       setLoading(false)
     }
@@ -59,13 +67,24 @@ export default function ClientRegisterModal({ open, onClose, onSuccess }: Props)
 
   async function handleVerifyOtp(e: React.FormEvent) {
     e.preventDefault()
-    if (otp !== generatedOtp) {
-      toast.error('Código incorrecto. Inténtalo de nuevo.')
+    if (otp.length !== 6) {
+      toast.error('Introduce un código válido de 6 dígitos.')
       return
     }
 
     setLoading(true)
     try {
+      // Verificar con la API de Twilio
+      const res = await fetch('/api/verify/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ to: telefono.trim(), code: otp })
+      })
+      const verifyData = await res.json()
+
+      if (!res.ok) {
+        throw new Error(verifyData.error || 'Código incorrecto')
+      }
 
       // Crear o recuperar cliente en la BD
       const { data, error } = await supabase
@@ -223,9 +242,9 @@ export default function ClientRegisterModal({ open, onClose, onSuccess }: Props)
 
                   <div className="rounded-xl p-4 text-sm"
                        style={{ background: 'rgba(232, 118, 58, 0.08)', border: '1px solid rgba(232, 118, 58, 0.2)' }}>
-                    <p className="text-legado-orange font-medium mb-1">⚠️ Modo Demostración</p>
+                    <p className="text-legado-orange font-medium mb-1">ℹ️ SMS Oficial</p>
                     <p className="text-legado-cream-muted">
-                      El sistema auto-rellenará los códigos SMS, pero mientras haces pruebas gratuitas, el código demo es el que apareció en la alerta verde superior.
+                      El código te ha sido enviado por SMS oficial desde el sistema de Twilio Verify. Revisa la bandeja de entrada de tu móvil.
                     </p>
                   </div>
 
