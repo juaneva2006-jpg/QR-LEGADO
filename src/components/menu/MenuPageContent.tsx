@@ -66,6 +66,12 @@ export default function MenuPageContent() {
         return
       }
 
+      // Si viene de otra mesa, vaciamos el carrito
+      const currentMesaNumero = useCartStore.getState().mesa_numero
+      if (currentMesaNumero !== null && currentMesaNumero !== mesaData.numero) {
+        useCartStore.getState().clearCart()
+      }
+
       setMesa(mesaData)
       setCartMesa(mesaData.id, mesaData.numero)
 
