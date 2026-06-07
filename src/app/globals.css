@@ -1,0 +1,353 @@
+@import "tailwindcss";
+
+/* ============================================================
+   LEGADO GASTROBAR — Design System Global CSS
+   Paleta: Naranja #E8763A | Madera Oscura #1A1208 | Crema #F5EFE0
+   ============================================================ */
+
+@theme {
+  /* === Brand Colors === */
+  --color-legado-orange: #E8763A;
+  --color-legado-orange-light: #F0956A;
+  --color-legado-orange-dark: #C85E24;
+  
+  --color-legado-dark: #1A1208;
+  --color-legado-surface: #2A1F10;
+  --color-legado-surface-2: #3A2D1C;
+  --color-legado-border: #4A3D2C;
+  
+  --color-legado-cream: #F5EFE0;
+  --color-legado-cream-muted: #C9C0B0;
+  
+  --color-legado-gold: #C9A84C;
+  --color-legado-gold-light: #E5C97A;
+  
+  /* === Typography === */
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-inter: 'Inter', system-ui, sans-serif;
+}
+
+/* === Global Resets === */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #1A1208;
+  color: #F5EFE0;
+  font-family: var(--font-inter);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* === Typography Utilities === */
+.font-playfair { font-family: var(--font-playfair); }
+.font-inter { font-family: var(--font-inter); }
+
+/* === Legado Brand Gradient === */
+.legado-gradient {
+  background: linear-gradient(135deg, #E8763A 0%, #C9A84C 100%);
+}
+
+.legado-gradient-text {
+  background: linear-gradient(135deg, #E8763A 0%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* === Glass Effect === */
+.glass {
+  background: rgba(42, 31, 16, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 118, 58, 0.15);
+}
+
+.glass-light {
+  background: rgba(245, 239, 224, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 239, 224, 0.1);
+}
+
+/* === Card styles === */
+.card {
+  background: #2A1F10;
+  border: 1px solid #4A3D2C;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(232, 118, 58, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(232, 118, 58, 0.1);
+}
+
+/* === Buttons === */
+.btn-primary {
+  background: linear-gradient(135deg, #E8763A 0%, #C85E24 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(232, 118, 58, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(232, 118, 58, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #E8763A;
+  border: 1px solid #E8763A;
+  border-radius: 12px;
+  padding: 11px 23px;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  background: rgba(232, 118, 58, 0.1);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #C9C0B0;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-ghost:hover { color: #F5EFE0; }
+
+/* === Inputs === */
+.input-legado {
+  width: 100%;
+  background: #2A1F10;
+  border: 1px solid #4A3D2C;
+  border-radius: 12px;
+  color: #F5EFE0;
+  padding: 12px 16px;
+  font-family: var(--font-inter);
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.input-legado::placeholder { color: #6B5D4A; }
+
+.input-legado:focus {
+  border-color: #E8763A;
+  box-shadow: 0 0 0 3px rgba(232, 118, 58, 0.15);
+}
+
+/* === Badge === */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-orange {
+  background: rgba(232, 118, 58, 0.15);
+  color: #E8763A;
+  border: 1px solid rgba(232, 118, 58, 0.3);
+}
+
+.badge-gold {
+  background: rgba(201, 168, 76, 0.15);
+  color: #C9A84C;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+}
+
+/* === Allergen Pills === */
+.allergen-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #FCA5A5;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* === Scrollbars === */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #1A1208; }
+::-webkit-scrollbar-thumb {
+  background: #E8763A;
+  border-radius: 4px;
+}
+
+/* === Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 118, 58, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(232, 118, 58, 0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+.animate-slide-up { animation: slideUp 0.5s ease forwards; }
+.animate-pulse-orange { animation: pulse-orange 2s infinite; }
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(90deg, #2A1F10 25%, #3A2D1C 50%, #2A1F10 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* === Status Colors for KDS === */
+.status-pendiente { background: #FEF3C7; color: #92400E; }
+.status-en_preparacion { background: #DBEAFE; color: #1E40AF; }
+.status-listo { background: #D1FAE5; color: #065F46; }
+.status-entregado { background: #F3F4F6; color: #374151; }
+.status-cancelado { background: #FEE2E2; color: #991B1B; }
+
+/* === Category Nav sticky === */
+.category-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(26, 18, 8, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(74, 61, 44, 0.5);
+}
+
+/* === Safe area for mobile === */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* === Cart floating button === */
+.cart-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  z-index: 50;
+  border-radius: 20px;
+  padding: 14px 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(232, 118, 58, 0.4);
+}
+
+/* === Timer indicator for KDS === */
+.timer-ok { color: #10B981; }
+.timer-warning { color: #F59E0B; }
+.timer-critical { color: #EF4444; animation: pulse-orange 1s infinite; }
+
+/* === KDS Card === */
+.kds-card {
+  background: #2A1F10;
+  border-radius: 16px;
+  border: 2px solid #4A3D2C;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.kds-card.is-new {
+  border-color: #E8763A;
+  box-shadow: 0 0 24px rgba(232, 118, 58, 0.3);
+  animation: pulse-orange 2s infinite;
+}
+
+/* === Admin sidebar === */
+.admin-sidebar {
+  background: #2A1F10;
+  border-right: 1px solid #4A3D2C;
+  min-height: 100vh;
+  width: 260px;
+  flex-shrink: 0;
+}
+
+.admin-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  margin: 2px 8px;
+  color: #C9C0B0;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+  background: rgba(232, 118, 58, 0.12);
+  color: #E8763A;
+}
+
+/* === QR Code display === */
+.qr-container {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
