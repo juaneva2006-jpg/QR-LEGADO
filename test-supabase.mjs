@@ -5,17 +5,22 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-async function test() {
-  console.log('Testing Mesa 5...')
+async function testQuery() {
   const { data, error } = await supabase
-    .from('mesas')
-    .select('*')
-    .eq('numero', 5)
-    .eq('activa', true)
-    .single()
-    
-  console.log('Data:', data)
-  console.log('Error:', error)
+    .from('pedidos')
+    .select(`
+      id, created_at, total, subtotal, iva, estado, updated_at,
+      mesa:mesas(numero, zona),
+      cliente:clientes(nombre, telefono),
+      facturas(numero_factura),
+      items:pedido_items(cantidad, producto:productos(nombre, precio))
+    `)
+    .eq('pago_estado', 'completado')
+    .order('created_at', { ascending: false })
+    .limit(1)
+
+  console.dir(data, { depth: null })
+  console.error(error)
 }
 
-test()
+testQuery()
