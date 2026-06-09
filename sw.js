@@ -1,14 +1,13 @@
-self.addEventListener('install', (e) => {
+self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (e) => {
-  self.clients.claim();
+self.addEventListener('activate', (event) => {
+  event.waitUntil(clients.claim());
 });
 
-self.addEventListener('fetch', (e) => {
-  // Fetch pass-through para cumplir requisitos de PWA
-  e.respondWith(
-    fetch(e.request).catch(() => new Response('Offline'))
-  );
+self.addEventListener('fetch', (event) => {
+  // Un service worker básico para que Chrome detecte la PWA y permita instalación.
+  // No cacheamos nada por defecto para no dar problemas con datos en tiempo real.
+  event.respondWith(fetch(event.request));
 });
